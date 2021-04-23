@@ -1,0 +1,13 @@
+---
+
+- name: "{{ k8s_package.name }} : scan manifest kind : {{ k8s_package_manifest }}"
+  set_fact:
+    k8s_package_manifest_kind: |
+      {{
+        "kubernetes" if k8s_package_manifest is regex('\.ya?ml$')
+        else "shell" if k8s_package_manifest is regex('\.sh$')
+        else "unknown"
+      }}
+
+- name: "{{ k8s_package.name }} : run manifest : {{ k8s_package_manifest }}"
+  include_tasks: manifests/{{ k8s_package_manifest_kind | trim }}.yml

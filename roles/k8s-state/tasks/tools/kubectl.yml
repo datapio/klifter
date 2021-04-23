@@ -1,0 +1,23 @@
+---
+
+- name: "kubectl : add repository key"
+  become: yes
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+
+- name: "kubectl : add repository"
+  become: yes
+  template:
+    src: kubernetes.list.j2
+    dest: /etc/apt/sources.list.d/kubernetes.list
+
+- name: "kubectl : update cache"
+  become: yes
+  shell: apt update
+  changed_when: false
+
+- name: "kubectl : install packages"
+  become: yes
+  shell: apt install -y --no-install-recommends kubectl
+  changed_when: false

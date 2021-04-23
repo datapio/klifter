@@ -1,0 +1,5 @@
+---
+
+- name: "{{ k8s_package.name }} : run Shell Script : {{ k8s_package_manifest }}"
+  shell: bash {{ k8s_package_manifest }}
+  changed_when: false

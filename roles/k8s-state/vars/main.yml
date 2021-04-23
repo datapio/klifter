@@ -1,0 +1,4 @@
+---
+
+k8s_state_default_tools:
+  - kubectl

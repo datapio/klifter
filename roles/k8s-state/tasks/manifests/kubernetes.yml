@@ -1,0 +1,5 @@
+---
+
+- name: "{{ k8s_package.name }} : deploy Kubernetes manifest : {{ k8s_package_manifest }}"
+  shell: kubectl apply -f {{ k8s_package_manifest }}
+  changed_when: false

@@ -1,0 +1,20 @@
+---
+
+- name: "{{ k8s_package.name }} : verify package parameters"
+  assert:
+    that:
+      - k8s_package.name is string
+      - "'{{ playbook_dir }}/cache/k8s-state-source/{{ k8s_package.name }}' is exists"
+
+- name: "{{ k8s_package.name }} : find package manifests"
+  find:
+    paths:
+      - "{{ playbook_dir }}/cache/k8s-state-source/{{ k8s_package.name }}"
+    recurse: yes
+  register: k8s_package_manifests
+
+- name: "{{ k8s_package.name }} : deploy package manifests"
+  include_tasks: manifest.yml
+  loop: '{{ k8s_package_manifests.files | map(attribute="path") | sort }}'
+  loop_control:
+    loop_var: k8s_package_manifest

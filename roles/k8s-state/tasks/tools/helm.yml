@@ -1,0 +1,23 @@
+---
+
+- name: "helm : add repository key"
+  become: yes
+  apt_key:
+    url: https://baltocdn.com/helm/signing.asc
+    state: present
+
+- name: "helm : add repository"
+  become: yes
+  template:
+    src: helm.list.j2
+    dest: /etc/apt/sources.list.d/helm.list
+
+- name: "helm : update cache"
+  become: yes
+  shell: apt update
+  changed_when: false
+
+- name: "helm : install packages"
+  become: yes
+  shell: apt install -y --no-install-recommends helm
+  changed_when: false
