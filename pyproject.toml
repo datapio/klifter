@@ -6,7 +6,7 @@ authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-ansible = "^3.2.0"
+ansible = "^3.3.0"
 Jinja2 = "^2.11.3"
 PyYAML = "^5.4.1"
 
