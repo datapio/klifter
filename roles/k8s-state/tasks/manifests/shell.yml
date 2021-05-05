@@ -3,3 +3,7 @@
 - name: "{{ k8s_package.name }} : run Shell Script : {{ k8s_package_manifest }}"
   shell: bash {{ k8s_package_manifest }}
   changed_when: false
+  register: result
+  retries: 5
+  delay: 10
+  until: result is not failed
