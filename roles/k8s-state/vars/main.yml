@@ -2,3 +2,25 @@
 
 k8s_state_default_tools:
   - kubectl
+  - kapp
+
+k8s_tool_kustomize:
+  installer: https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh
+
+k8s_tool_kapp:
+  url: https://github.com/vmware-tanzu/carvel-kapp/releases/download/v0.36.0/kapp-linux-amd64
+  checksum: sha256:22fe308f1d9ebbb829a6ea10ca80d9468ff4b9aa911b0c33788fe67d04ccb383
+  dest: /usr/local/bin/kapp
+  mode: 0755
+
+k8s_tool_kbld:
+  url: https://github.com/vmware-tanzu/carvel-kbld/releases/download/v0.29.0/kbld-linux-amd64
+  checksum: sha256:28492a398854e8fec7dd9537243b07af7f43e6598e1e4557312f5481f6840499
+  dest: /usr/local/bin/kbld
+  mode: 0755
+
+k8s_tool_ytt:
+  url: https://github.com/vmware-tanzu/carvel-ytt/releases/download/v0.33.0/ytt-linux-amd64
+  checksum: de20cb812f6c5f66feeb66cfcc82607d21c2b726cb54cfd0eaddd112f062e5ca
+  dest: /usr/local/bin/ytt
+  mode: 0755

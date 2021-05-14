@@ -1,0 +1,10 @@
+---
+
+- name: "kustomize : install binary"
+  become: yes
+  shell:
+    cmd: |
+      curl -s "{{ k8s_tool_kustomize.installer }}" | bash
+      chmod 0755 kustomize
+      mv kustomize /usr/local/bin/kustomize
+    creates: /usr/local/bin/kustomize

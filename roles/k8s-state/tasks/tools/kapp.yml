@@ -1,0 +1,5 @@
+---
+
+- name: "kapp : download binary"
+  become: yes
+  get_url: "{{ k8s_tool_kapp }}"
