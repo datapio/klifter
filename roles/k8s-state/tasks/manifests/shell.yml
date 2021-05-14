@@ -1,7 +1,9 @@
 ---
 
-- name: "{{ k8s_package.name }} : run Shell Script : {{ k8s_package_manifest }}"
-  shell: bash {{ k8s_package_manifest }}
+- name: "{{ k8s_bundle.name }} : run Shell Script : {{ k8s_bundle_manifest }}"
+  shell:
+    cmd: bash '{{ k8s_bundle_manifest }}'
+    chdir: "{{ playbook_dir }}/cache/k8s-state-source"
   changed_when: false
   register: result
   retries: 5

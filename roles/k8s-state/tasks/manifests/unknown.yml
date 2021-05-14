@@ -1,5 +1,5 @@
 ---
 
-- name: "{{ k8s_package.name }} : ignore : {{ k8s_package_manifest }}"
+- name: "{{ k8s_bundle.name }} : ignore : {{ k8s_bundle_manifest }}"
   shell: "true"
   changed_when: false
