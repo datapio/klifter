@@ -17,7 +17,8 @@
   assert:
     that:
       - k8s_state_source_vars.tools is sequence
-      - k8s_state_source_vars.packages is sequence
+      - k8s_state_source_vars.bundles is sequence
+      - k8s_state_source_vars.applications is sequence
 
 - name: install tools
   include_tasks: tools/{{ k8s_tool }}.yml
@@ -25,8 +26,14 @@
   loop_control:
     loop_var: k8s_tool
 
-- name: deploy packages
-  include_tasks: package.yml
-  loop: "{{ k8s_state_source_vars.packages }}"
+- name: deploy bundles
+  include_tasks: bundle.yml
+  loop: "{{ k8s_state_source_vars.bundles }}"
   loop_control:
-    loop_var: k8s_package
+    loop_var: k8s_bundle
+
+- name: deploy applications
+  include_tasks: application.yml
+  loop: "{{ k8s_state_source_vars.apps }}"
+  loop_control:
+    loop_var: k8s_application
