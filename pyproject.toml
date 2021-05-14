@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "k8s-converge"
+name = "klifter"
 version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
+description = "Deploy bundles and applications from Git"
+authors = ["Link Society <contact@link-society.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"

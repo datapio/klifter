@@ -8,8 +8,8 @@ run:
 
 .PHONY: docker/build
 docker/build:
-	@docker build -t ghcr.io/datapio/k8s-converge:latest -f Dockerfile .
+	@docker build -t ghcr.io/datapio/klifter:latest -f Dockerfile .
 
 .PHONY: docker/run
 docker/run:
-	@docker run --rm ghcr.io/datapio/k8s-converge:latest
+	@docker run --rm ghcr.io/datapio/klifter:latest
