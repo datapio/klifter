@@ -1,0 +1,119 @@
+#!/usr/bin/env python3.9
+
+from ansible.module_utils.basic import AnsibleModule
+import jsonschema
+import yaml
+import os
+
+
+SCHEMA = dict(
+    type='object',
+    properties=dict(
+        tools=dict(
+            type='array',
+            items=dict(type='string'),
+            default=[]
+        ),
+        bundles=dict(
+            type='array',
+            items=dict(
+                type='object',
+                required=['name'],
+                properties=dict(
+                    name=dict(type='string')
+                )
+            ),
+            default=[]
+        ),
+        applications=dict(
+            type='array',
+            items=dict(
+                type='object',
+                required=['name'],
+                properties=dict(
+                    name=dict(type='string')
+                )
+            ),
+            default=[]
+        )
+    )
+)
+
+
+def extend_with_defaults(validator_class):
+    validate_properties = validator_class.VALIDATORS['properties']
+
+    def set_defaults(validator, properties, instance, schema):
+        for property, subschema in properties.items():
+            if 'default' in subschema:
+                instance.setdefault(property, subschema['default'])
+
+        errors = validate_properties(validator, properties, instance, schema)
+
+        for error in errors:
+            yield error
+
+    return jsonschema.validators.extend(
+        validator_class,
+        dict(properties= set_defaults)
+    )
+
+
+Validator = extend_with_defaults(jsonschema.Draft7Validator)
+
+
+def run_module():
+    module_args = dict(
+        location=dict(type='str', required=True)
+    )
+
+    result = dict(
+        changed=False,
+        ansible_facts={}
+    )
+
+    module = AnsibleModule(
+        argument_spec=module_args,
+        supports_check_mode=False
+    )
+
+    location = os.path.join(module.params['location'], 'vars.yml')
+
+    if not os.path.exists(location):
+        module.fail_json(msg=f'{location} not found')
+
+    else:
+        try:
+            with open(location) as f:
+                variables = yaml.safe_load(f)
+
+            Validator(SCHEMA).validate(variables)
+
+            for package_kind in ['bundles', 'applications']:
+                for package in variables[package_kind]:
+                    package_dir = os.path.join(
+                        location,
+                        package_kind,
+                        package['name']
+                    )
+
+                    if not os.path.exists(package_dir):
+                        raise Exception(f'{package_dir} not found')
+
+                    if not os.path.isdir(package_dir):
+                        raise Exception(f'{package_dir} is not a directory')
+
+            result['ansible_facts']['k8s_state_source_vars'] = variables
+
+        except Exception as err:
+            module.fail_json(
+                msg=f'Impossible to load \'{location}\': {err}',
+                **result
+            )
+
+        else:
+            module.exit_json(**result)
+
+
+if __name__ == '__main__':
+    run_module()
