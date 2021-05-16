@@ -3,7 +3,7 @@
 - name: "{{ k8s_bundle.name }} : deploy Kubernetes manifest : {{ k8s_bundle_manifest }}"
   shell:
     cmd: kubectl apply -f '{{ k8s_bundle_manifest }}'
-    chdir: "{{ playbook_dir }}/cache/k8s-state-source"
+    chdir: "{{ k8s_state_source_location }}"
   changed_when: false
   register: result
   retries: 5

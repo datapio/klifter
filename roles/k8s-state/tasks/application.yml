@@ -1,11 +1,5 @@
 ---
 
-- name: "{{ k8s_application.name }} : verify application parameters"
-  assert:
-    that:
-      - k8s_application.name is string
-      - "'{{ playbook_dir }}/cache/k8s-state-source/apps/{{ k8s_application.name }}' is exists"
-
 - name: "{{ k8s_application.name }} : create namespace"
   shell:
     cmd: |
@@ -23,5 +17,5 @@
   changed_when: false
 
 - name: "{{ k8s_application.name }} : deploy application"
-  shell: kapp deploy -n 'klifter-system-app-{{ k8s_application.name }}' -a '{{ k8s_application.name }}' -f '{{ playbook_dir }}/cache/k8s-state-source/apps/{{ k8s_application.name }}'
+  shell: kapp deploy -n 'klifter-system-app-{{ k8s_application.name }}' -a '{{ k8s_application.name }}' -f '{{ k8s_state_source_location }}/apps/{{ k8s_application.name }}'
   changed_when: false

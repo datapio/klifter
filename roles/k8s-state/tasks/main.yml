@@ -1,25 +1,5 @@
 ---
 
-- name: clone k8s state source
-  git:
-    repo: "{{ k8s_state_source_url }}"
-    version: "{{ k8s_state_source_ref }}"
-    accept_hostkey: yes
-    depth: "1"
-    dest: "{{ playbook_dir }}/cache/k8s-state-source"
-
-- name: load k8s state source variables
-  include_vars:
-    file: "{{ playbook_dir }}/cache/k8s-state-source/vars.yml"
-    name: k8s_state_source_vars
-
-- name: verify k8s state source variables
-  assert:
-    that:
-      - k8s_state_source_vars.tools is sequence
-      - k8s_state_source_vars.bundles is sequence
-      - k8s_state_source_vars.applications is sequence
-
 - name: install tools
   include_tasks: tools/{{ k8s_tool }}.yml
   loop: "{{ k8s_state_default_tools + k8s_state_source_vars.tools }}"
