@@ -40,9 +40,12 @@ class KubernetesSources:
     def local():
         location = os.getenv(EnvVars.local_dir)
 
-        if not location or not os.path.exists(location):
+        if not location \
+            or not os.path.exists(location) \
+            or not os.path.isabs(location):
+
             raise Exception(
-                f'Missing environment variable: {EnvVars.local_dir}'
+                f'Invalid value for environment variable: {EnvVars.local_dir}'
             )
 
         return {
