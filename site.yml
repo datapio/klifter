@@ -1,22 +1,8 @@
 ---
 
-- name: build inventory
-  hosts: localhost
-  connection: local
-  tasks:
-    - name: get state source
-      set_fact:
-        k8s_state_source_url: '{{ lookup("env", "K8S_STATE_SOURCE_URL") | default(None) }}'
-        k8s_state_source_ref: '{{ lookup("env", "K8S_STATE_SOURCE_REF") | default(None) }}'
-
-    - name: verify state source
-      assert:
-        that:
-          - '{{ k8s_state_source_url | length }} > 0'
-          - '{{ k8s_state_source_ref | length }} > 0'
-
 - name: apply desired state
   hosts: localhost
   connection: local
   roles:
+    - k8s-source
     - k8s-state
