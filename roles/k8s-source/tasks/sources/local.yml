@@ -1,0 +1,5 @@
+---
+
+- name: "local : configure k8s state source location"
+  set_fact:
+    k8s_state_source_location: "{{ k8s_state_source_local_dir }}"

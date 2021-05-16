@@ -1,0 +1,92 @@
+#!/usr/bin/env python3.9
+
+from ansible.module_utils.basic import AnsibleModule
+import os
+
+
+class EnvVars:
+    git_url = 'K8S_STATE_SOURCE_GIT_URL'
+    git_ref = 'K8S_STATE_SOURCE_GIT_REF'
+    git_folder = 'K8S_STATE_SOURCE_GIT_DIR'
+
+    local_dir = 'K8S_STATE_SOURCE_LOCAL_DIR'
+
+
+class Facts:
+    git_url = 'k8s_state_source_git_url'
+    git_ref = 'k8s_state_source_git_ref'
+    git_folder = 'k8s_state_source_git_dir'
+
+    local_dir = 'k8s_state_source_local_dir'
+
+
+class KubernetesSources:
+    @staticmethod
+    def git():
+        url = os.getenv(EnvVars.git_url)
+        ref = os.getenv(EnvVars.git_ref, 'main')
+        folder = os.getenv(EnvVars.git_folder, '.')
+
+        if not url:
+            raise Exception(f'Missing environment variable: {EnvVars.git_url}')
+
+        return {
+            Facts.git_url: url,
+            Facts.git_ref: ref,
+            Facts.git_folder: folder
+        }
+
+    @staticmethod
+    def local():
+        location = os.getenv(EnvVars.local_dir)
+
+        if not location \
+            or not os.path.exists(location) \
+            or not os.path.isabs(location):
+
+            raise Exception(
+                f'Invalid value for environment variable: {EnvVars.local_dir}'
+            )
+
+        return {
+            Facts.local_dir: location
+        }
+
+
+def run_module():
+    module_args = dict(
+        kind=dict(type='str', required=True)
+    )
+
+    result = dict(
+        changed=False,
+        ansible_facts={}
+    )
+
+    module = AnsibleModule(
+        argument_spec=module_args,
+        supports_check_mode=False
+    )
+
+    kind = module.params['kind']
+    handler = getattr(KubernetesSources, kind, None)
+
+    if handler is None:
+        module.fail_json(msg=f'Unknown Kubernetes Source \'{kind}\'', **result)
+
+    try:
+        result['ansible_facts'] = handler()
+        result['ansible_facts']['k8s_state_source_kind'] = kind
+
+    except Exception as err:
+        module.fail_json(
+            msg=f'Impossible to validate Kubernetes Source \'{kind}\': {err}',
+            **result
+        )
+
+    else:
+        module.exit_json(**result)
+
+
+if __name__ == '__main__':
+    run_module()

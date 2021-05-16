@@ -15,7 +15,14 @@ WORKDIR /workspace
 
 RUN poetry install
 
-ENV K8S_STATE_SOURCE_URL ""
-ENV K8S_STATE_SOURCE_REF ""
+VOLUME /data
+
+ENV K8S_STATE_SOURCE_KIND "local"
+
+ENV K8S_STATE_SOURCE_LOCAL_DIR "/data"
+
+ENV K8S_STATE_SOURCE_GIT_URL ""
+ENV K8S_STATE_SOURCE_GIT_REF "main"
+ENV K8S_STATE_SOURCE_GIT_DIR "."
 
 CMD [ "poetry", "run", "ansible-playbook", "site.yml" ]

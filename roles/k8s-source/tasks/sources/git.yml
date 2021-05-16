@@ -1,0 +1,13 @@
+---
+
+- name: "git : clone k8s state source"
+  git:
+    repo: "{{ k8s_state_source_git_url }}"
+    version: "{{ k8s_state_source_git_ref }}"
+    accept_hostkey: yes
+    depth: "1"
+    dest: "{{ playbook_dir }}/cache/k8s-state-source"
+
+- name: "git : configure k8s state source location"
+  set_fact:
+    k8s_state_source_location: "{{ playbook_dir }}/cache/k8s-state-source/{{ k8s_state_source_git_dir }}"

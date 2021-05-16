@@ -1,0 +1,12 @@
+---
+
+- name: gather k8s state source facts
+  set_k8s_source_facts:
+    kind: '{{ lookup("env", "K8S_STATE_SOURCE_KIND") | default(None) }}'
+
+- name: load k8s state source
+  include_tasks: 'sources/{{ k8s_state_source_kind }}.yml'
+
+- name: load k8s state source variables
+  include_k8s_source_vars:
+    location: "{{ k8s_state_source_location }}"
