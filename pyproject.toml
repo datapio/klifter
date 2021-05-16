@@ -9,6 +9,7 @@ python = "^3.9"
 ansible = "^3.4.0"
 Jinja2 = "^2.11.3"
 PyYAML = "^5.4.1"
+jsonschema = "^3.2.0"
 
 [tool.poetry.dev-dependencies]
 
