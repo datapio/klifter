@@ -1,14 +1,14 @@
 ---
 
-- name: "{{ k8s_bundle.name }} : find bundle manifests"
+- name: "{{ k8s_package.name }} : find bundle manifests"
   find:
     paths:
-      - "{{ k8s_state_source_location }}/bundles/{{ k8s_bundle.name }}"
+      - "{{ k8s_state_source_location }}/bundles/{{ k8s_package.name }}"
     recurse: yes
-  register: k8s_bundle_manifests
+  register: k8s_package_manifests
 
-- name: "{{ k8s_bundle.name }} : deploy bundle manifests"
+- name: "{{ k8s_package.name }} : deploy bundle manifests"
   include_tasks: manifest.yml
-  loop: '{{ k8s_bundle_manifests.files | map(attribute="path") | sort }}'
+  loop: '{{ k8s_package_manifests.files | map(attribute="path") | sort }}'
   loop_control:
-    loop_var: k8s_bundle_manifest
+    loop_var: k8s_package_manifest
