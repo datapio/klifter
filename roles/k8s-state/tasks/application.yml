@@ -1,6 +1,6 @@
 ---
 
-- name: "{{ k8s_application.name }} : create namespace"
+- name: "{{ k8s_package.name }} : create namespace"
   shell:
     cmd: |
       cat <<EOF | kubectl apply -f -
@@ -8,14 +8,14 @@
       apiVersion: v1
       kind: Namespace
       metadata:
-        name: klifter-system-app-{{ k8s_application.name }}
+        name: klifter-system-app-{{ k8s_package.name }}
         labels:
           app.kubernetes.io/managed-by: klifter
           app.kubernetes.io/component: application
-          app.kubernetes.io/name: {{ k8s_application.name }}
+          app.kubernetes.io/name: {{ k8s_package.name }}
       EOF
   changed_when: false
 
-- name: "{{ k8s_application.name }} : deploy application"
-  shell: kapp deploy -n 'klifter-system-app-{{ k8s_application.name }}' -a '{{ k8s_application.name }}' -f '{{ k8s_state_source_location }}/apps/{{ k8s_application.name }}'
+- name: "{{ k8s_package.name }} : deploy application"
+  shell: kapp deploy -n 'klifter-system-app-{{ k8s_package.name }}' -a '{{ k8s_package.name }}' -f '{{ k8s_state_source_location }}/apps/{{ k8s_package.name }}'
   changed_when: false

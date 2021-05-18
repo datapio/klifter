@@ -6,14 +6,8 @@
   loop_control:
     loop_var: k8s_tool
 
-- name: deploy bundles
-  include_tasks: bundle.yml
-  loop: "{{ k8s_state_source_vars.bundles }}"
+- name: deploy packages
+  include_tasks: "{{ package.kind }}.yml"
+  loop: "{{ k8s_state_source_vars.packages }}"
   loop_control:
-    loop_var: k8s_bundle
-
-- name: deploy applications
-  include_tasks: application.yml
-  loop: "{{ k8s_state_source_vars.apps }}"
-  loop_control:
-    loop_var: k8s_application
+    loop_var: k8s_package

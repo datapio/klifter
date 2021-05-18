@@ -1,8 +1,8 @@
 ---
 
-- name: "{{ k8s_bundle.name }} : deploy Kubernetes manifest : {{ k8s_bundle_manifest }}"
+- name: "{{ k8s_package.name }} : deploy Kubernetes manifest : {{ k8s_package_manifest }}"
   shell:
-    cmd: kubectl apply -f '{{ k8s_bundle_manifest }}'
+    cmd: kubectl apply -f '{{ k8s_package_manifest }}'
     chdir: "{{ k8s_state_source_location }}"
   changed_when: false
   register: result

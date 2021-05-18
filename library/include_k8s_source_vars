@@ -14,24 +14,14 @@ SCHEMA = dict(
             items=dict(type='string'),
             default=[]
         ),
-        bundles=dict(
+        packages=dict(
             type='array',
             items=dict(
                 type='object',
-                required=['name'],
+                required=['name', 'kind'],
                 properties=dict(
-                    name=dict(type='string')
-                )
-            ),
-            default=[]
-        ),
-        applications=dict(
-            type='array',
-            items=dict(
-                type='object',
-                required=['name'],
-                properties=dict(
-                    name=dict(type='string')
+                    name=dict(type='string'),
+                    kind=dict(enum=['bundle', 'application'])
                 )
             ),
             default=[]
@@ -89,19 +79,18 @@ def run_module():
 
             Validator(SCHEMA).validate(variables)
 
-            for package_kind in ['bundles', 'applications']:
-                for package in variables[package_kind]:
-                    package_dir = os.path.join(
-                        location,
-                        package_kind,
-                        package['name']
-                    )
+            for package in variables['packages']:
+                package_dir = os.path.join(
+                    location,
+                    package['kind'],
+                    package['name']
+                )
 
-                    if not os.path.exists(package_dir):
-                        raise Exception(f'{package_dir} not found')
+                if not os.path.exists(package_dir):
+                    raise Exception(f'{package_dir} not found')
 
-                    if not os.path.isdir(package_dir):
-                        raise Exception(f'{package_dir} is not a directory')
+                if not os.path.isdir(package_dir):
+                    raise Exception(f'{package_dir} is not a directory')
 
             result['ansible_facts']['k8s_state_source_vars'] = variables
 
