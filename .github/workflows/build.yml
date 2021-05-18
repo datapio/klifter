@@ -1,0 +1,40 @@
+---
+name: klifter build
+
+on:
+  push:
+    branches-ignore:
+      - main
+    tags-ignore:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout@scm
+        uses: actions/checkout@master
+
+      - name: klifter@docker
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: datapio/klifter
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+          registry: ghcr.io
+          dockerfile: Dockerfile
+          tag_semver: true
+          no_push: true
+          cache: true
+
+      - name: notify@slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          username: CIBot
+          fields: repo,message,commit,author,ref,took,job
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        if: always()
