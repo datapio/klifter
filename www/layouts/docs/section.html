@@ -8,9 +8,9 @@
       {{ range .Pages }}
         <div class="column is-one-third px-6 py-5">
           <div class="panel is-link is-flex is-flex-direction-column is-full-height">
-            <p class="panel-heading has-text-centered">
+            <a href="{{ .RelPermalink }}" class="panel-heading has-text-centered">
               {{ .Title }}
-            </p>
+            </a>
             <p class="panel-tabs">
               <a href="{{ .RelPermalink }}">
                 <i class="fas fa-book"></i>
