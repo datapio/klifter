@@ -12,13 +12,6 @@ html {
   flex: 1;
 }
 
-#klifter-landing canvas{
-  position: absolute;
-  top: 0;
-  height: 100vh;
-  z-index: 2;
-}
-
 .is-visible-print-only {
   display: none !important;
 }

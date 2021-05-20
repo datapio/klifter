@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <section id="klifter-landing" class="hero is-link is-large is-fullheight">
+  <section class="hero is-link is-large is-fullheight">
     <div class="hero-head">
       <nav class="navbar">
         <div class="container">
@@ -49,11 +49,6 @@
 {{ end }}
 
 {{ define "scripts" }}
-  <script
-    type="application/javascript"
-    src="https://cdn.jsdelivr.net/npm/particles.js@2/particles.min.js"
-  ></script>
-
   <script type="application/javascript">
     $(function() {
       $('.navbar-burger').on('click', () => {
@@ -64,8 +59,6 @@
           $('.navbar-menu').addClass('is-active')
         }
       })
-
-      particlesJS.load('klifter-landing', '/assets/particles.json')
     })
   </script>
 {{ end }}
