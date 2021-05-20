@@ -1,5 +1,14 @@
 ---
 
+- name: install distribution packages
+  become: yes
+  shell:
+    cmd: |
+      set -eux
+      apt update
+      apt install -y --no-install-recommends {{ k8s_state_distro_pkgs | join(' ') }}
+  changed_when: false
+
 - name: install tools
   include_tasks: tools/{{ k8s_tool }}.yml
   loop: "{{ k8s_state_default_tools + k8s_state_source_vars.tools }}"
