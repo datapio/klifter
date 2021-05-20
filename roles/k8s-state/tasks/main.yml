@@ -7,7 +7,7 @@
     loop_var: k8s_tool
 
 - name: deploy packages
-  include_tasks: "{{ package.kind }}.yml"
+  include_tasks: "{{ k8s_package.kind }}.yml"
   loop: "{{ k8s_state_source_vars.packages }}"
   loop_control:
     loop_var: k8s_package
