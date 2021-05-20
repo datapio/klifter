@@ -34,11 +34,13 @@ And the following tools are supported:
  - [ytt](https://carvel.dev/ytt)
  - [docker](https://docker.com)
  - [kbld](https://carvel.dev/kbld)
+ - [vault](https://vaultproject.io)
 
 Those tools allow your pipeline to:
 
  - build and push Docker images to a Container Registry
  - deploy static or templated Kubernetes resources
+ - read/write secrets
 
 # Pipeline layout
 
