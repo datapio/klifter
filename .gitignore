@@ -1,3 +1,4 @@
 cache/*
 !cache/.gitkeep
 .env
+www/resources/

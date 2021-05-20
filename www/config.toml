@@ -1,0 +1,34 @@
+baseURL = "https://klifter.datapio.co/"
+languageCode = "en-us"
+staticDir = ["static"]
+
+title = "klifter"
+
+[params]
+
+description = """
+klifter is a DevOps tool used to deploy your Kubernetes resources and applications
+from a Git repository.
+"""
+
+github = "https://github.com/datapio/klifter"
+
+[[params.menu]]
+
+name = "Datapio"
+url = "https://datapio.co/"
+
+[[params.menu]]
+
+name = "Kubirds"
+url = "https://kubirds.com"
+
+[[params.menu]]
+
+name = "klander"
+url = "https://klander.datapio.co/"
+
+[[params.menu]]
+
+name = "Software Development Kit"
+url = "https://sdk.datapio.co/"

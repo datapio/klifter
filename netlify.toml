@@ -1,0 +1,3 @@
+[build]
+publish = "www/public/"
+command = "hugo --minify -s www"
