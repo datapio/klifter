@@ -1,5 +1,9 @@
 ---
 
+- name: get user
+  set_fact:
+    k8s_state_user: "{{ lookup('env', 'K8S_STATE_USER') | default('nobody') }}"
+
 - name: gather k8s state source facts
   set_k8s_source_facts:
     kind: '{{ lookup("env", "K8S_STATE_SOURCE_KIND") | default(None) }}'

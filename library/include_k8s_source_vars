@@ -25,6 +25,11 @@ SCHEMA = dict(
                 )
             ),
             default=[]
+        ),
+        environment=dict(
+            type='array',
+            items=dict(type='string'),
+            default=[]
         )
     )
 )
@@ -81,8 +86,8 @@ def run_module():
 
             for package in variables['packages']:
                 package_dir = os.path.join(
-                    location,
-                    package['kind'],
+                    os.path.dirname(location),
+                    '{}s'.format(package['kind']),
                     package['name']
                 )
 
@@ -92,7 +97,20 @@ def run_module():
                 if not os.path.isdir(package_dir):
                     raise Exception(f'{package_dir} is not a directory')
 
+            envvars = {}
+
+            for varname in variables['environment']:
+                value = os.getenv(varname)
+
+                if value is None:
+                    raise Exception(
+                        f'Environment variable {varname} is not set'
+                    )
+
+                envvars[varname] = value
+
             result['ansible_facts']['k8s_state_source_vars'] = variables
+            result['ansible_facts']['k8s_state_source_env'] = envvars
 
         except Exception as err:
             module.fail_json(

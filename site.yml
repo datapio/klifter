@@ -3,14 +3,12 @@
 - name: gather facts
   hosts: localhost
   connection: local
-  tasks:
-    - name: get user
-      set_fact:
-        k8s_state_user: "{{ lookup('env', 'K8S_STATE_USER') | default('nobody') }}"
+  roles:
+    - k8s-source
 
 - name: apply desired state
   hosts: localhost
   connection: local
   roles:
-    - k8s-source
     - k8s-state
+  environment: "{{ k8s_state_source_env }}"
