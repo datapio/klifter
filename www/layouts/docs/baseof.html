@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+  <head>
+    {{ partial "metadata.html" . }}
+    {{ partial "css.html" . }}
+    {{ partial "scripts.html" . }}
+  </head>
+
+  <body class="has-navbar-fixed-top">
+    {{ partial "navbar.html" . }}
+
+    <div class="page-container">
+      <div class="page-wrapper">
+        <div class="mt-6"></div>
+        {{ block "main" . }}
+        {{ end }}
+      </div>
+
+      <footer class="footer mt-6">
+        <p class="has-text-centered">
+          Documentation content is released under the term of the
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>
+          license.
+        </p>
+      </footer>
+    </div>
+
+    <script type="application/javascript">
+      $(function() {
+        $('.navbar-burger').on('click', () => {
+          if ($('.navbar-menu').hasClass('is-active')) {
+            $('.navbar-menu').removeClass('is-active')
+          }
+          else {
+            $('.navbar-menu').addClass('is-active')
+          }
+        })
+      })
+    </script>
+
+    {{ block "scripts" . }}
+    {{ end }}
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{{ if and (isset .Params "toc") .Params.toc }}
+  <div class="column is-narrow is-hidden-touch is-hidden-print">
+    <div class="menu pt-1 is-sticky">
+      <p class="menu-label has-text-centered">Table of Content</p>
+
+      <ul id="toc" class="menu-list"></ul>
+    </div>
+  </div>
+{{ end }}
+
+{{ define "scripts" }}
+  {{ if and (isset .Params "toc") .Params.toc }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.min.js"></script>
+
+    <script type="text/javascript">
+      $(function () {
+        tocbot.init({
+          tocSelector: '#toc',
+          contentSelector: '#document',
+          headingSelector: 'h1, h2, h3, h4, h5, h6',
+          orderedList: false,
+          activeLinkClass: 'is-active'
+        })
+      })
+    </script>
+  {{ end }}
+{{ end }}

@@ -1,0 +1,71 @@
+{{ define "main" }}
+  <section id="klifter-landing" class="hero is-link is-large is-fullheight">
+    <div class="hero-head">
+      <nav class="navbar">
+        <div class="container">
+          <div class="navbar-brand">
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="klifter-nav-menu">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div class="navbar-menu" id="klifter-nav-menu">
+            <div class="navbar-end">
+              <a href="/docs/" class="navbar-item">Documentation</a>
+              <span class="navbar-item">
+                <a href="{{ .Site.Params.Github }}" class="button is-link is-inverted">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Download</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="hero-body">
+      <div class="container">
+        <p class="title">{{ .Site.Title }} &#128640; {{ .Params.LandingTitle }}</p>
+        <p class="subtitle">{{ .Params.LandingSubtitle }}</p>
+      </div>
+    </div>
+
+    <div class="hero-foot">
+      <nav class="landing-tabs tabs is-boxed is-fullwidth">
+        <div class="container">
+          <ul>
+            {{ range .Site.Params.Menu }}
+              <li><a href="{{ .url }}">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </section>
+{{ end }}
+
+{{ define "scripts" }}
+  <script
+    type="application/javascript"
+    src="https://cdn.jsdelivr.net/npm/particles.js@2/particles.min.js"
+  ></script>
+
+  <script type="application/javascript">
+    $(function() {
+      $('.navbar-burger').on('click', () => {
+        if ($('.navbar-menu').hasClass('is-active')) {
+          $('.navbar-menu').removeClass('is-active')
+        }
+        else {
+          $('.navbar-menu').addClass('is-active')
+        }
+      })
+
+      particlesJS.load('klifter-landing', '/assets/particles.json')
+    })
+  </script>
+{{ end }}
