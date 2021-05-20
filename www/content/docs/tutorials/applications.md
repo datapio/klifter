@@ -71,3 +71,8 @@ HELM="helm template foobar ./charts/foobar-chart -n foobar-system -f -"
 
 $VAULT | $HELM > ./applications/foobar/manifest.yml
 ```
+
+# What's next?
+
+Learn more about [kapp](https://carvel.dev/kapp/docs/latest/) or read the
+[Tools](/docs/tools/) reference.
