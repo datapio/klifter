@@ -1,5 +1,8 @@
 ---
 
+k8s_state_distro_pkgs:
+  - jq
+
 k8s_state_default_tools:
   - kubectl
   - kapp
