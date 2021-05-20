@@ -1,0 +1,23 @@
+---
+
+- name: "vault : add repository key"
+  become: yes
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    state: present
+
+- name: "vault : add repository"
+  become: yes
+  template:
+    src: vault.list.j2
+    dest: /etc/apt/sources.list.d/vault.list
+
+- name: "vault : update cache"
+  become: yes
+  shell: apt update
+  changed_when: false
+
+- name: "vault : install packages"
+  become: yes
+  shell: apt install -y --no-install-recommends vault
+  changed_when: false
