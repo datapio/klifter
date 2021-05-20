@@ -17,9 +17,11 @@ ADD . /workspace
 WORKDIR /workspace
 
 RUN set -ex && \
-    useradd -s /bin/bash -d /workspace klifter-agent && \
-    chown -R klifter-agent:klifter-agent /workspace && \
-    useradd -ms /bin/bash klifter-restricted && \
+    groupadd klifter && \
+    useradd -s /bin/bash -d /workspace -g klifter klifter-agent && \
+    useradd -s /bin/bash -d /workspace -g klifter klifter-restricted && \
+    chown -R klifter-agent:klifter /workspace && \
+    chmod -R g+rw /workspace && \
     echo "klifter-agent ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/klifter
 
 USER klifter-agent
