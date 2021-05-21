@@ -1,0 +1,9 @@
+cache/*
+!cache/.gitkeep
+.env
+www/
+.github
+netlify.toml
+Makefile
+README.md
+run-playbook.sh
