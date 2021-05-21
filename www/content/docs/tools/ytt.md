@@ -13,7 +13,6 @@ toc = true
 
 # Installation
 
-
 To enable this tool, add this to your `vars.yml`:
 
 ```yaml
