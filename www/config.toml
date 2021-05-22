@@ -6,6 +6,7 @@ title = "klifter"
 
 [params]
 
+emoji = "&#128640;"
 description = """
 klifter is a DevOps tool used to deploy your Kubernetes resources and applications
 from a Git repository.

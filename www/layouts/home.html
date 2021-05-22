@@ -29,7 +29,7 @@
 
     <div class="hero-body">
       <div class="container">
-        <p class="title">{{ .Site.Title }} &#128640; {{ .Params.LandingTitle }}</p>
+        <p class="title">{{ .Site.Title }} {{ .Site.Params.Emoji | safeHTML }} {{ .Params.LandingTitle }}</p>
         <p class="subtitle">{{ .Params.LandingSubtitle }}</p>
       </div>
     </div>

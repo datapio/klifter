@@ -2,7 +2,7 @@
   <div class="container">
     <div class="navbar-brand">
       <a href="/" class="navbar-item is-size-4 has-text-weight-semibold">
-        klifter &#128640;
+        {{ .Site.Title }} {{ .Site.Params.Emoji | safeHTML }}
       </a>
       <span class="navbar-burger" data-target="klifter-nav-menu">
         <span></span>
