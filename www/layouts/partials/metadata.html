@@ -1,0 +1,9 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="description" content="{{ .Site.Params.Description }}" />
+<meta property="og:description" content="{{ .Site.Params.Description }}" />
+<meta property="og:title" content="{{ .Site.Title }}" />
+<meta name="twitter:title" content="{{ .Site.Title }}" />
+
+<title>{{ .Site.Title }} - {{ .Params.title | default .Title }}</title>

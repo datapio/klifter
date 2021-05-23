@@ -1,0 +1,51 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-wrapper {
+  flex: 1;
+}
+
+.is-visible-print-only {
+  display: none !important;
+}
+
+@media print {
+  .is-visible-print-only {
+    display: block !important;
+  }
+
+  .is-hidden-print {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .landing-tabs.tabs ul {
+    flex-shrink: 1;
+    flex-wrap: wrap;
+    border-bottom-color: transparent;
+  }
+}
+
+.is-sticky {
+	position: sticky;
+  top: 3.5em;
+  left: 0;
+  right: 0;
+  z-index: 30;
+}
+
+.is-full-height {
+  height: 100% !important;
+}
+
+.is-flex-auto {
+  flex: auto;
+}

@@ -1,0 +1,18 @@
+<script
+  type="application/javascript"
+  src="https://raw.githubusercontent.com/link-society/micro-web-component/main/index.js"
+></script>
+<script
+  type="application/javascript"
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+></script>
+
+<script type="application/javascript">
+  $(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('print')) {
+      window.print()
+      window.onafterprint = window.close
+    }
+  })
+</script>

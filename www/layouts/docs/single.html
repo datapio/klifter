@@ -1,0 +1,17 @@
+{{ define "main" }}
+  <div class="container">
+    <h1 class="title is-size-2 has-text-centered">&#128218; {{ partial "breadcrumbs.html" . }}</h1>
+
+    <hr />
+
+    <div class="columns">
+      {{ partial "toc.html" . }}
+
+      <div class="column">
+        <div class="content" id="document">
+          {{ .Content }}
+        </div>
+      </div>
+    </div>
+  </div>
+{{ end }}

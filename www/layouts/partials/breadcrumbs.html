@@ -1,0 +1,16 @@
+{{ $.Scratch.Set "path" "" }}
+
+{{ range after 1 (split .RelPermalink "/")}}
+  {{ if ne . "" }}
+    {{ $.Scratch.Set "path" (delimit (slice ($.Scratch.Get "path") .) "/" ) }}
+
+    {{ $url := printf "%s" ($.Scratch.Get "path") }}
+    {{ $page := $.Site.GetPage $url }}
+
+    {{ if eq (printf "%s/" $url) $.RelPermalink }}
+      / {{ $page.Title }}
+    {{ else }}
+      / <a href="{{ $url }}">{{ $page.Title }}</a>
+    {{ end }}
+  {{ end }}
+{{ end }}

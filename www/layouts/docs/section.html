@@ -1,0 +1,42 @@
+{{ define "main" }}
+  <div class="container">
+    <h1 class="title is-size-2 has-text-centered">&#128218; {{ partial "breadcrumbs.html" . }}</h1>
+
+    <hr />
+
+    <div class="columns is-centered is-multiline is-mobile is-hidden-print">
+      {{ range .Pages }}
+        <div class="column is-one-third px-6 py-5">
+          <div class="panel is-link is-flex is-flex-direction-column is-full-height">
+            <a href="{{ .RelPermalink }}" class="panel-heading has-text-centered">
+              {{ .Title }}
+            </a>
+            <p class="panel-tabs">
+              <a href="{{ .RelPermalink }}">
+                <i class="fas fa-book"></i>
+                <span class="ml-1">Read</span>
+              </a>
+              <a href="{{ .RelPermalink }}?print=1" target="_blank">
+                <i class="fas fa-print"></i>
+                <span class="ml-1">Print</span>
+              </a>
+            </p>
+            <div class="panel-block is-flex-auto has-text-justified">
+              <div class="content">{{ .Description | markdownify }}</div>
+            </div>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+
+    <div class="is-visible-print-only content">
+      {{ range .Pages }}
+        <p class="title is-size-4"><a href="{{ .Permalink }}">{{ .Title }}</a></p>
+
+        <p class="has-text-justified">
+          {{ .Description | markdownify }}
+        </p>
+      {{ end }}
+    </div>
+  </div>
+{{ end }}
